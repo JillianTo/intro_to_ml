@@ -29,3 +29,26 @@ plt.close()
 
 # Scatter Plot and Subplots
 fig, axs = plt.subplots(1, 2, figsize=(12, 6)) # 1 row, 2 columns
+
+# Define colors and markers for different classes
+colors = {'Iris-setosa': 'red', 'Iris-versicolor': 'green', 'Iris-virginica': 'blue'}
+markers = {'Iris-setosa': 'o', 'Iris-versicolor': 'x', 'Iris-virginica': 's'}
+
+# Sepal Length vs Sepal Width
+for species, group in df.groupby('class'):
+	axs[0].scatter(group['sepal_length'], group['sepal_width'], color=colors[species],marker=markers[species],label=species)
+axs[0].set_title('Sepal Length vs Sepal Width')
+axs[0].set_xlabel('Sepal Length (cm)')
+axs[0].set_ylabel('Sepal Width (cm)')
+axs[0].legend()
+
+# Petal Length vs Petal Wdith
+for species, group in df.groupby('class'):
+	axs[1].scatter(group['petal_length'], group['petal_width'], color=colors[species], marker=markers[species], label=species)
+axs[1].set_title('Petal Length vs Petal Width')
+axs[1].set_xlabel('Petal Length (cm)')
+axs[1].set_ylabel('Petal Width (cm)')
+axs[1].legend()
+
+plt.tight_layout()
+plt.savefig('scatter_plots.png')
