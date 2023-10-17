@@ -1,0 +1,4 @@
+num_epochs: 
+   value: 2
+lr:
+   value: 0.01

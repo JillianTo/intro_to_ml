@@ -7,12 +7,8 @@ import torchvision.transforms as transforms
 import wandb
 from tqdm import tqdm
 
-# Hyperparameters
-num_epochs = 2
-lr = 0.01
-
 # Initialize wandb
-wandb.init(project="mnist.pytorch", entity="jto")
+run = wandb.init(project="mnist.pytorch", entity="jto")
 
 mean = None
 std = None
@@ -73,11 +69,11 @@ class Net(nn.Module):
 print("Initializing model, loss function, and optimizer...")
 model = Net()
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.SGD(model.parameters(), lr=lr)
+optimizer = optim.SGD(model.parameters(), lr=wandb.config["lr"])
 
 # Training Loop
 print("Starting Training Loop...")
-for epoch in range(num_epochs):
+for epoch in range(wandb.config["num_epochs"]):
 	print(f"Epoch {epoch+1}")
 	pbar = tqdm(enumerate(trainloader), total=len(trainloader), desc=f"Epoch {epoch+1}")
 	for i, data in pbar:
